@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   FileText,
   HelpCircle,
@@ -20,17 +20,23 @@ import {
   BookOpen,
   Calendar,
   Layers,
+  ArrowRight,
   SlidersHorizontal,
+  FolderTree,
   Edit3,
   Award,
+  ChevronDown,
   Upload,
   Paperclip,
   Mail,
   ShieldCheck,
+  Check,
   FileCheck,
+  Clock,
   User,
   Trash2,
-  FileUp
+  FileUp,
+  Download
 } from 'lucide-react';
 
 /* =========================================================================
@@ -1426,8 +1432,10 @@ export default function App() {
 
   const handleFinalEmailReportSend = () => {
     setIsFinalEmailReportModalOpen(false);
-    setFinalEmailActionNotice('발송되었습니다');
-    setTimeout(() => setFinalEmailActionNotice(null), 3500);
+    setFinalEmailActionNotice('발송되었습니다. 페이지로 이동합니다...');
+    setTimeout(() => {
+      window.location.href = 'https://test34-tcuc.vercel.app/';
+    }, 300);
   };
 
   // Filtered DX datasets in modal
@@ -2861,14 +2869,25 @@ export default function App() {
                   <span>수정하기</span>
                 </button>
 
-                <button
-                  type="button"
-                  onClick={isFinalEmailReportModalOpen ? handleFinalEmailReportSend : handleEmailReportSend}
-                  className="px-6 py-2.5 rounded-md text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md flex items-center gap-1.5 transition-all cursor-pointer active:scale-98"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>그대로 발송하기</span>
-                </button>
+                {isFinalEmailReportModalOpen ? (
+                  <a
+                    href="https://test34-tcuc.vercel.app/"
+                    onClick={handleFinalEmailReportSend}
+                    className="px-6 py-2.5 rounded-md text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md flex items-center gap-1.5 transition-all cursor-pointer active:scale-98"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>그대로 발송하기</span>
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleEmailReportSend}
+                    className="px-6 py-2.5 rounded-md text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md flex items-center gap-1.5 transition-all cursor-pointer active:scale-98"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>그대로 발송하기</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
